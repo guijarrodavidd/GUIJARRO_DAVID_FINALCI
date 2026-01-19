@@ -1,0 +1,770 @@
+/* =========================================
+   1. VARIABLES Y CONFIGURACIÓN BASE
+   ========================================= */
+:root {
+    --primary-color: #2c5e2e; /* Verde bosque elegante */
+    --secondary-color: #1a3c1e; /* Verde más oscuro */
+    --accent-color: #d4af37; /* Dorado premium */
+    --text-dark: #2d3436;
+    --text-light: #f5f6fa;
+    --bg-light: #fdfdfd;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lato', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    overflow-x: hidden; /* Evita scroll horizontal indeseado */
+}
+
+/* =========================================
+   2. TIPOGRAFÍA Y TÍTULOS
+   ========================================= */
+h1, h2, h3, h4, h5 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+.text-accent {
+    color: var(--accent-color) !important;
+}
+
+/* =========================================
+   3. BARRA DE NAVEGACIÓN (Efecto Cristal Premium)
+   ========================================= */
+.navbar-custom {
+    background: rgba(15, 30, 15, 0.7); /* Verde muy oscuro casi negro, transparente */
+    backdrop-filter: blur(15px); /* Difumina fuerte lo que hay detrás (Efecto hielo) */
+    -webkit-backdrop-filter: blur(15px); /* Para Safari */
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Línea sutil blanca abajo */
+    transition: all 0.4s ease;
+}
+
+/* El Logotipo */
+.navbar-brand-custom {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-brand-custom i {
+    color: var(--accent-color); /* La huella en dorado */
+    font-size: 1.6rem;
+}
+
+/* Los Enlaces del Menú */
+.nav-link-custom {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 15px;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.nav-link-custom:hover, 
+.nav-link-custom.active {
+    color: var(--accent-color) !important; /* Se pone dorado al pasar el ratón */
+}
+
+/* Animación de la línea debajo del enlace */
+.nav-link-custom::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link-custom:hover::after {
+    width: 100%; /* La línea crece al pasar el ratón */
+}
+
+/* Botón de "Iniciar Sesión" (Texto simple) */
+.btn-login {
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    margin-right: 15px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.btn-login:hover {
+    color: var(--accent-color);
+}
+
+/* Botón "Regístrate" (El cambio importante del azul al dorado) */
+.btn-register {
+    background: var(--accent-color); /* Fondo Dorado */
+    color: #1a3c1e; /* Texto Verde Oscuro (Contraste alto) */
+    padding: 10px 25px;
+    border-radius: 50px; /* Redondeado elegante */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); /* Brillo dorado */
+    transition: all 0.3s ease;
+}
+
+.btn-register:hover {
+    background: transparent;
+    color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+/* Dropdown del usuario logueado */
+.dropdown-menu-dark-custom {
+    background-color: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.dropdown-item {
+    color: #ccc;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+}
+.dropdown-item:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+/* =========================================
+   4. HERO SECTION (Video Background)
+   ========================================= */
+.hero-wrapper {
+    position: relative;
+    height: 100vh; /* Pantalla completa */
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    object-fit: cover; /* Asegura que cubra todo sin deformarse */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Degradado elegante para que el texto se lea bien */
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,20,0,0.8));
+    z-index: -1;
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    line-height: 1.1;
+    color: white;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.9);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* =========================================
+   5. BOTONES PERSONALIZADOS
+   ========================================= */
+.btn-custom {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 0; /* Cuadrados = más elegantes */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    border: 2px solid var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: transparent;
+    color: var(--accent-color);
+    transform: translateY(-3px); /* Efecto levitación */
+}
+
+.btn-outline-light-custom {
+    border: 2px solid white;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light-custom:hover {
+    background-color: white;
+    color: var(--secondary-color);
+}
+
+/* =========================================
+   6. TARJETAS (CARDS) FLOTANTES
+   ========================================= */
+.card-custom {
+    border: none;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.card-custom:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.card-img-wrapper {
+    overflow: hidden;
+    height: 280px;
+}
+
+.card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card-custom:hover .card-img-wrapper img {
+    transform: scale(1.1); /* Zoom en la foto al pasar el mouse */
+}
+
+.badge-custom {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
+.footer-custom {
+    background-color: #111;
+    color: #aaa;
+    padding-top: 60px;
+    padding-bottom: 30px;
+}
+
+.footer-heading {
+    color: white;
+    font-family: var(--font-heading);
+    margin-bottom: 20px;
+}
+
+/* ANIMACIONES */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-up {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.delay-1 { animation-delay: 0.2s; opacity: 0; }
+.delay-2 { animation-delay: 0.4s; opacity: 0; }
+
+/* =========================================
+   8. AJUSTES DE ESPACIADO (FIX DEL HEADER)
+   ========================================= */
+
+/* Solo para páginas internas (Catálogo, Login, etc.) */
+body.internal-page {
+    /* Empujamos todo el contenido hacia abajo */
+    /* 100px es aprox la altura de tu menú + un poco de aire */
+    padding-top: 120px !important; 
+    background-color: #f8f9fa; /* Un gris muy clarito de fondo queda mejor que blanco puro */
+}
+
+/* Opcional: Si quieres que en las páginas internas el menú sea sólido y no transparente */
+body.internal-page .navbar-custom {
+    background: #1a3c1e !important; /* Verde sólido */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+/* =========================================
+   9. SECCIÓN "DEJA TU HUELLA" (OVERLAP)
+   ========================================= */
+
+:root {
+    /* Nuevo color naranja vibrante como en tu imagen */
+    --accent-orange: #ff6b00; 
+}
+
+/* 1. Fondo Parallax Oscuro */
+.cta-section {
+    position: relative;
+    /* Usa una imagen de fondo oscura o un perro negro como en tu foto */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../../uploads/gatillo.avif');
+    background-size: cover;
+    background-attachment: fixed; /* Efecto Parallax */
+    background-position: center;
+    padding: 120px 0 180px 0; /* Mucho padding abajo para dejar espacio a la tarjeta */
+    color: white;
+    text-align: center;
+}
+
+.cta-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+/* Botón Naranja Redondo */
+.btn-orange {
+    background-color: var(--accent-orange);
+    color: white;
+    padding: 12px 35px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
+}
+
+.btn-orange:hover {
+    background-color: #e65100;
+    transform: translateY(-3px);
+    color: white;
+}
+
+/* 2. La Tarjeta Flotante (La magia) */
+.floating-stats-card {
+    background: white;
+    border-radius: 20px;
+    padding: 50px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    margin-top: -100px; /* ESTO HACE QUE SUBA Y SE SUPERPONGA */
+    position: relative;
+    z-index: 10;
+}
+
+/* Iconos de estadísticas */
+.stat-item i {
+    font-size: 3rem;
+    color: transparent; /* Truco para hacer iconos con borde */
+    -webkit-text-stroke: 1px var(--accent-orange); /* Borde naranja fino */
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.stat-number {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d3436;
+}
+
+.stat-label {
+    font-family: var(--font-heading); /* Tipografía elegante */
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #636e72;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 3. Ajuste Responsive */
+@media (max-width: 991px) {
+    .floating-stats-card {
+        margin-top: 0; /* En móviles quitamos la superposición para que no se rompa */
+        margin-bottom: 50px;
+    }
+    .cta-section {
+        padding-bottom: 80px;
+    }
+}
+h2.cta-title {
+    color: var(--text-light);
+}
+
+/* =========================================
+   10. PÁGINAS DE LOGIN Y REGISTRO (SPLIT SCREEN MEJORADO)
+   ========================================= */
+
+.auth-wrapper {
+    min-height: 85vh;
+    background: white;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1); /* Sombra más suave y grande */
+    border-radius: 24px; /* Bordes más redondeados */
+    margin-top: 30px;
+    margin-bottom: 50px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* COLUMNA IZQUIERDA (FORMULARIO) */
+.auth-form-side {
+    padding: 60px 50px; /* Más espacio interno */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+    position: relative;
+    z-index: 2;
+}
+
+.form-control-clean {
+    border: none;
+    border-bottom: 2px solid #eee;
+    border-radius: 0;
+    padding: 15px 5px;
+    background: transparent;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.form-control-clean:focus {
+    box-shadow: none;
+    border-color: var(--accent-orange);
+    background: #fffdf5;
+}
+
+.auth-title {
+    font-family: var(--font-heading);
+    color: var(--secondary-color);
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+/* COLUMNA DERECHA (VISUAL MEJORADO) */
+.auth-visual-side {
+    /* Asegúrate que la ruta de la imagen es correcta */
+    background: url('../../uploads/perrosgatos.jpeg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Importante: esto permite poner una capa oscura encima */
+    z-index: 1; 
+}
+
+/* NUEVO: Capa oscura sobre la imagen para mejorar el contraste */
+.auth-visual-side::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(26, 60, 30, 0.3); /* Tono verde oscuro semitransparente */
+    z-index: -1; /* Se pone detrás del contenido */
+}
+
+/* La tarjeta flotante (Efecto Cristal Premium) */
+.auth-overlay-card {
+    /* Más transparente que antes */
+    background: rgba(255, 255, 255, 0.75);
+    
+    /* Difuminado fuerte del fondo (Efecto hielo) */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    /* Borde sutil brillante */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    
+    padding: 50px 40px;
+    border-radius: 24px; /* Muy redondeado */
+    max-width: 85%;
+    text-align: center;
+    
+    /* Sombra muy difuminada para que flote */
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease;
+}
+
+.auth-overlay-card:hover {
+    transform: translateY(-5px); /* Pequeño movimiento al pasar el mouse */
+}
+
+/* Tipografía dentro de la tarjeta */
+.auth-overlay-card h3 {
+    font-size: 2.2rem;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 10px rgba(255,255,255,0.5);
+}
+
+.auth-overlay-card p {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #444; /* Texto un poco más oscuro para leerse mejor */
+    font-weight: 500;
+}
+
+.auth-overlay-card i {
+    font-size: 3.5rem;
+    margin-top: 20px;
+    display: inline-block;
+    /* Sombra suave al icono */
+    filter: drop-shadow(0 10px 15px rgba(220, 53, 69, 0.3));
+}
+
+/* =========================================
+   11. CATÁLOGO PREMIUM (ARREGLADO)
+   ========================================= */
+
+/* 1. Cabecera y Sidebar (Igual que antes) */
+.breadcrumb-section {
+    position: relative; padding: 80px 0; text-align: center;
+    background-color: #2c3e50; color: white; margin-bottom: 50px;
+}
+.breadcrumb-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); z-index: 1;
+}
+.breadcrumb-content { position: relative; z-index: 2; }
+
+.sidebar {
+    background: white; padding: 30px; border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #eee;
+}
+.sidebar-title {
+    font-family: var(--font-heading); weight: 700; margin-bottom: 20px;
+    padding-bottom: 10px; border-bottom: 2px solid var(--accent-orange);
+    display: inline-block; color: var(--secondary-color);
+}
+.sidebar-search form { position: relative; }
+.sidebar-search input {
+    width: 100%; padding: 12px 15px; border: 1px solid #ddd;
+    border-radius: 50px; outline: none; transition: all 0.3s;
+}
+.sidebar-search input:focus { border-color: var(--accent-orange); }
+.sidebar-search button {
+    position: absolute; right: 5px; top: 5px; height: 36px; width: 36px;
+    background: var(--accent-orange); color: white; border: none;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.sidebar-categories ul { padding: 0; list-style: none; }
+.sidebar-categories li { margin-bottom: 12px; }
+.sidebar-categories a {
+    color: #555; text-decoration: none; weight: 500; display: block; transition: all 0.2s;
+}
+.sidebar-categories a:hover { color: var(--accent-orange); transform: translateX(5px); }
+
+
+/* 2. Tarjetas de Mascotas (EL ARREGLO CLAVE) */
+.product-item {
+    background: white; border-radius: 15px; overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: all 0.3s ease;
+    margin-bottom: 30px; border: 1px solid #f0f0f0;
+}
+.product-item:hover {
+    transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* Contenedor de la Imagen */
+.product-pic {
+    height: 250px; width: 100%;
+    background-position: center; background-size: cover; background-repeat: no-repeat;
+    position: relative;
+    /* ARREGLADO: Quitamos el overflow: hidden de aquí */
+}
+
+/* ARREGLADO: Nuevo contenedor solo para los botones flotantes */
+.product-hover-overlay {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    padding: 20px 0; /* Espacio para los botones */
+    /* ARREGLADO: Los botones empiezan escondidos (opacity 0) y más abajo */
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: all 0.4s ease;
+    display: flex; justify-content: center; gap: 10px;
+    /* Opcional: un degradado sutil para que resalten más */
+    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+}
+
+/* ARREGLADO: Al pasar el ratón sobre TODA la tarjeta, los botones aparecen */
+.product-item:hover .product-hover-overlay {
+    opacity: 1;
+    transform: translateY(0); /* Suben a su sitio */
+}
+
+/* Estilo de los botones redondos */
+.product-hover-btn {
+    display: flex; align-items: center; justify-content: center;
+    height: 45px; width: 45px;
+    background: white; color: #1a3c1e;
+    border-radius: 50%; font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s; text-decoration: none;
+}
+.product-hover-btn:hover {
+    background: var(--accent-orange); color: white; transform: rotate(360deg);
+}
+
+/* Badge Especie */
+.badge-species {
+    position: absolute; top: 15px; left: 15px; z-index: 10;
+    background: var(--primary-color); color: white; padding: 5px 12px;
+    border-radius: 20px; font-size: 0.75rem; weight: 700; text-transform: uppercase;
+}
+
+/* Textos de la tarjeta (Ahora están a salvo) */
+.product-text { padding: 20px; text-align: center; background: white; }
+.product-text h6 { weight: 700; font-size: 1.2rem; margin-bottom: 5px; }
+.product-text h6 a { color: #2c3e50; text-decoration: none; }
+.product-text h5 { color: var(--accent-orange); weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+
+/* =========================================
+   12. PAGINACIÓN PERSONALIZADA
+   ========================================= */
+
+.pagination {
+    margin-top: 50px;
+    gap: 8px; /* Separación entre botones */
+    align-items: center;
+}
+
+.page-link {
+    border: none;
+    border-radius: 50% !important; /* Hacemos los botones redondos */
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-color); /* Texto verde oscuro */
+    background-color: white;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Sombrita suave */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Efecto al pasar el ratón */
+.page-link:hover {
+    background-color: #f0f0f0;
+    color: var(--primary-color);
+    transform: translateY(-3px); /* El botón sube un poco */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* Botón Activo (Página actual) */
+.page-item.active .page-link {
+    background-color: var(--primary-color); /* Fondo Dorado/Naranja */
+    color: white;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); /* Resplandor dorado */
+    transform: scale(1.1); /* Un pelín más grande */
+}
+
+/* Quitamos el foco azul feo de los navegadores */
+.page-link:focus {
+    box-shadow: none;
+}
+/* Estilo para los botones deshabilitados (flechas cuando no hay más páginas) */
+.page-item.disabled .page-link {
+    background-color: #f8f9fa; /* Fondo gris claro */
+    color: #ccc; /* Icono gris claro */
+    cursor: not-allowed;
+    opacity: 0.6;
+    box-shadow: none;
+    transform: none !important;
+}
+
+/* Aseguramos que los botones activos tengan el cursor de mano */
+.page-item:not(.disabled) .page-link {
+    cursor: pointer;
+}
+h1 .display-3 {
+    color: var(--text-light);
+}
+h1 .fw-bold {
+    color: var(--text-light);
+}
+/* =========================================
+   13. CORRECCIONES VISUALES (HEADER Y DROPDOWN)
+   ========================================= */
+
+/* 1. ARREGLO DEL TÍTULO DEL BANNER (Texto Blanco) */
+.breadcrumb-content h1 {
+    color: #ffffff !important; /* Blanco puro forzado */
+    text-shadow: 0 3px 6px rgba(0,0,0,0.8); /* Sombra negra fuerte detrás de las letras */
+    font-weight: 800;
+}
+
+/* Arreglo de las migas de pan (Inicio / Catálogo) */
+.breadcrumb-item, 
+.breadcrumb-item a {
+    color: rgba(255, 255, 255, 0.9) !important; /* Blanco brillante */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.breadcrumb-item.active {
+    color: var(--accent-orange) !important; /* Naranja para la página actual */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+/* 2. ARREGLO DEL MENÚ DESPLEGABLE (Ordenar por) */
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Sombra elegante */
+    padding: 10px 0;
+    border-radius: 10px;
+}
+
+.dropdown-item {
+    color: #333333 !important; /* Gris oscuro para que se LEA BIEN */
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 12px 25px;
+    transition: all 0.2s ease;
+}
+
+/* Efecto al pasar el ratón por las opciones */
+.dropdown-item:hover, 
+.dropdown-item:focus {
+    background-color: #fffdf5; /* Fondo crema muy suave */
+    color: var(--accent-orange) !important; /* Texto naranja vibrante */
+    transform: translateX(5px); /* Pequeño desplazamiento a la derecha */
+}
