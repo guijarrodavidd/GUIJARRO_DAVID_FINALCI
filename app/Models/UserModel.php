@@ -6,16 +6,17 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-    protected $table            = 'usuarios'; // Nombre de la tabla
-    protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
-    
-    // Aquí ponemos los campos que permitimos modificar
-    protected $allowedFields    = ['nombre', 'email', 'clave', 'rol'];
+    protected $table      = 'usuarios';
+    protected $primaryKey = 'id';
 
-    // Configuración de fechas
-    protected $useTimestamps = true;
-    protected $createdField  = 'fecha_creacion'; // Mapeamos nuestro campo en español
-    protected $updatedField  = ''; // Si no usas campo de actualización, déjalo vacío o crea el campo en la BD
+    protected $useAutoIncrement = true;
+
+    protected $returnType     = 'array';
+    
+    // ¡AQUÍ ESTÁ LA CLAVE!
+    // Tienes que listar TODOS los campos que se pueden guardar.
+    // Asegúrate de que pone 'password' y no 'pass' ni 'clave'.
+    protected $allowedFields = ['nombre', 'email', 'password', 'rol']; 
+
+    protected $useTimestamps = false; 
 }

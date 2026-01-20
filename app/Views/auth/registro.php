@@ -20,7 +20,7 @@
                 </div>
             <?php endif; ?>
 
-            <form action="<?= base_url('registro/guardar') ?>" method="post">
+            <form action="<?= base_url('auth/store') ?>" method="post">
                 <div class="mb-3">
                     <label class="text-uppercase small fw-bold text-muted">Nombre Completo</label>
                     <input type="text" name="nombre" class="form-control form-control-clean" value="<?= old('nombre') ?>" required>

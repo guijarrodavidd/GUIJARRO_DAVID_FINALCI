@@ -71,9 +71,9 @@ class AuthController extends BaseController
 
         // Validaciones
         $reglas = [
-            'nombre'           => 'required|min_length(3)',
+            'nombre'           => 'required|min_length[3]',
             'email'            => 'required|valid_email|is_unique[usuarios.email]',
-            'password'         => 'required|min_length(6)',
+            'password'         => 'required|min_length[6]',
             'confirm_password' => 'matches[password]'
         ];
 
@@ -92,13 +92,14 @@ class AuthController extends BaseController
 
         $userModel->save($data);
 
-        return redirect()->to('/login')->with('mensaje', '¡Cuenta creada! Ahora puedes iniciar sesión.');
+        // Fíjate que ahora apuntamos a auth/login
+        return redirect()->to('/auth/login')->with('mensaje', '¡Cuenta creada! Ahora puedes iniciar sesión.');    
     }
 
     // 5. Cerrar Sesión
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('/login');
+        return redirect()->to('auth/login');
     }
 }

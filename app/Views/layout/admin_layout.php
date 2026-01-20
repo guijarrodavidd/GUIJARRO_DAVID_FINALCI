@@ -10,6 +10,22 @@
     <link rel="stylesheet" href="<?= base_url('assets/admin/css/style.css') ?>">
     <link rel="shortcut icon" href="<?= base_url('assets/admin/images/favicon.png') ?>" />
 </head>
+<style>
+        .btn-outline-info:hover,
+        .btn-outline-primary:hover,
+        .btn-outline-success:hover,
+        .btn-outline-warning:hover,
+        .btn-outline-danger:hover,
+        .btn-inverse-success:hover,
+        .btn-inverse-danger:hover {
+            color: #ffffff !important;
+        }
+
+        .btn:hover {
+            color: #ffffff !important;
+        }
+    </style>
+</head>
 <body>
     <div class="container-scroller">
         
@@ -56,11 +72,19 @@
                 </li>
 
                 <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?= base_url('admin/solicitudes') ?>" target="_blank">
+                        <span class="menu-icon"><i class="mdi mdi-web"></i></span>
+                        <span class="menu-title">Gestionar Solicitudes</span>
+                    </a>
+                </li>
+
+                <li class="nav-item menu-items">
                     <a class="nav-link" href="<?= base_url('/') ?>" target="_blank">
                         <span class="menu-icon"><i class="mdi mdi-web"></i></span>
                         <span class="menu-title">Ir a la Web</span>
                     </a>
                 </li>
+                
             </ul>
         </nav>
 

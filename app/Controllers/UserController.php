@@ -2,41 +2,37 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
 use App\Models\AdoptionModel;
 
 class UserController extends BaseController
 {
-    // Procesar el formulario del modal de adopción
     public function solicitarAdopcion()
     {
-        // 1. Verificar si está logueado (Doble seguridad)
-        if (!session()->has('is_logged')) {
-            return redirect()->to('/login');
-        }
-
-        $request = \Config\Services::request();
         $adoptionModel = new AdoptionModel();
 
-        // 2. Validar que no haya pedido ya a esa mascota (Opcional, pero recomendado)
-        $existe = $adoptionModel->where('usuario_id', session('id_usuario'))
-                                ->where('mascota_id', $request->getPost('mascota_id'))
-                                ->first();
+        // 1. Recogemos el ID de la mascota del formulario (campo oculto)
+        $mascotaId = $this->request->getPost('mascota_id');
 
-        if ($existe) {
-            return redirect()->back()->with('error', 'Ya has enviado una solicitud para esta mascota.');
+        // 2. ¡AQUÍ ESTABA EL ERROR! 
+        // Recogemos el ID del usuario desde la SESIÓN (no del formulario)
+        $usuarioId = session()->get('id');
+
+        // (Seguridad extra) Si por lo que sea no hay usuario, al login
+        if (!$usuarioId) {
+            return redirect()->to('/auth/login')->with('error', 'Debes iniciar sesión para adoptar.');
         }
 
-        // 3. Guardar la solicitud
+        // 3. Preparamos los datos
         $data = [
-            'usuario_id' => session('id_usuario'),
-            'mascota_id' => $request->getPost('mascota_id'),
-            'mensaje'    => $request->getPost('mensaje'),
-            'estado'     => 'pendiente'
+            'usuario_id' => $usuarioId,  // <--- ESTO SOLUCIONA TU ERROR
+            'mascota_id' => $mascotaId,
+            'estado'     => 'pendiente', // Estado inicial
+            'mensaje'    => $this->request->getPost('mensaje') // Si tienes un campo de "cuéntanos por qué"
         ];
 
+        // 4. Guardamos
         $adoptionModel->save($data);
 
-        return redirect()->back()->with('mensaje', '¡Solicitud enviada! Nos pondremos en contacto contigo pronto.');
+        return redirect()->back()->with('mensaje', '¡Solicitud enviada! Nos pondremos en contacto contigo.');
     }
 }

@@ -57,4 +57,5 @@ $routes->group('admin', ['filter' => 'auth:admin'], function($routes) {
     // 3. Gestión de Solicitudes
     $routes->get('solicitudes', 'AdminController::verSolicitudes');
     $routes->get('solicitudes/estado/(:num)/(:segment)', 'AdminController::cambiarEstadoSolicitud/$1/$2');
+    $routes->get('solicitudes/ver/(:num)', 'AdminController::verDetalleSolicitud/$1');
 });

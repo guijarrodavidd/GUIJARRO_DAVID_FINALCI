@@ -138,4 +138,34 @@ class AdminController extends BaseController
 
         return redirect()->to('/admin/solicitudes')->with('mensaje', 'Estado actualizado.');
     }
+    // Ver el detalle completo de una solicitud
+    public function verDetalleSolicitud($id)
+    {
+        $adoptionModel = new AdoptionModel();
+
+        // Hacemos JOIN para traer TODOS los datos necesarios
+        $solicitud = $adoptionModel->select('solicitudes.*, 
+                                            usuarios.nombre as nombre_usuario, 
+                                            usuarios.email as email_usuario, 
+                                            mascotas.nombre as nombre_mascota, 
+                                            mascotas.imagen, 
+                                            mascotas.especie, 
+                                            mascotas.raza, 
+                                            mascotas.edad,
+                                            mascotas.sexo')
+                                   ->join('usuarios', 'usuarios.id = solicitudes.usuario_id')
+                                   ->join('mascotas', 'mascotas.id = solicitudes.mascota_id')
+                                   ->find($id);
+
+        if (!$solicitud) {
+            return redirect()->to('/admin/solicitudes')->with('mensaje', 'Solicitud no encontrada.');
+        }
+
+        $data = [
+            'titulo'    => 'Detalle de Solicitud',
+            'solicitud' => $solicitud
+        ];
+
+        return view('admin/detalle_solicitud', $data);
+    }
 }
