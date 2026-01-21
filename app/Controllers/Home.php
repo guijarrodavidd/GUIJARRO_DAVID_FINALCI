@@ -84,4 +84,25 @@ class Home extends BaseController
 
         return view('detalle', $data);
     }
+    // Función para el buscador en vivo
+    public function buscarAjax()
+    {
+        // 1. Recoger lo que escribe el usuario
+        $texto = $this->request->getVar('q'); 
+        
+        // 2. Si no escribe nada, devolvemos vacío
+        if(empty($texto)) return $this->response->setJSON([]);
+
+        // 3. Buscar en la BD (Por nombre o por especie)
+        $petModel = new \App\Models\PetModel();
+        
+        // Buscamos coincidencias y limitamos a 5 resultados para no saturar
+        $resultados = $petModel->select('id, nombre, especie, imagen')
+                               ->like('nombre', $texto)
+                               ->orLike('especie', $texto)
+                               ->findAll(5);
+
+        // 4. Devolver en formato JSON
+        return $this->response->setJSON($resultados);
+    }
 }

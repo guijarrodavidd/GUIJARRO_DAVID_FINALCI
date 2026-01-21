@@ -19,6 +19,7 @@ $routes->get('/', 'Home::index');
 // (Más adelante modificaremos el controlador Home para esto)
 $routes->get('mascotas', 'Home::catalogo');          // Ver lista completa
 $routes->get('mascotas/(:num)', 'Home::detalle/$1'); // Ver detalle de una mascota
+$routes->get('mascotas/buscar-ajax', 'Home::buscarAjax');
 
 
 // --------------------------------------------------------------------
