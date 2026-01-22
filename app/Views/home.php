@@ -22,7 +22,7 @@
                 Ver Catálogo
             </a>
             <?php if(!session()->has('is_logged')): ?>
-                <a href="<?= base_url('registro') ?>" class="btn btn-outline-light-custom">
+                <a href="<?= base_url('auth/registro') ?>" class="btn btn-outline-light-custom">
                     Unirse al club
                 </a>
             <?php endif; ?>
@@ -38,7 +38,7 @@
             Ayúdanos a seguir salvando vidas. Hay muchas formas de colaborar 
             y conseguir que vuelvan a tener esperanza.
         </p>
-        <a href="<?= base_url('registro') ?>" class="btn btn-orange">
+        <a href="<?= base_url('auth/registro') ?>" class="btn btn-orange">
             Colabora con nosotros
         </a>
     </div>

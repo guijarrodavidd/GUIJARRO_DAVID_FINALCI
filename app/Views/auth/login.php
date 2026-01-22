@@ -10,7 +10,7 @@
             <div class="mb-5">
                 <i class="bi bi-paw-fill text-accent fs-1"></i>
                 <h2 class="auth-title">Bienvenido</h2>
-                <p class="text-muted">¿No tienes cuenta? <a href="<?= base_url('registro') ?>" class="text-accent fw-bold text-decoration-none">Crea una cuenta</a></p>
+                <p class="text-muted">¿No tienes cuenta? <a href="<?= base_url('auth/registro') ?>" class="text-accent fw-bold text-decoration-none">Crea una cuenta</a></p>
             </div>
 
             <?php if(session()->getFlashdata('error')): ?>

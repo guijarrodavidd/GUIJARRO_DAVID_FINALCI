@@ -7,7 +7,7 @@
         
         <div class="col-lg-6 auth-form-side order-lg-2"> <div class="mb-4">
                 <h2 class="auth-title">Únete al Club</h2>
-                <p class="text-muted">¿Ya tienes cuenta? <a href="<?= base_url('login') ?>" class="text-accent fw-bold text-decoration-none">Inicia sesión aquí</a></p>
+                <p class="text-muted">¿Ya tienes cuenta? <a href="<?= base_url('auth/login') ?>" class="text-accent fw-bold text-decoration-none">Inicia sesión aquí</a></p>
             </div>
 
             <?php if(session('errors')): ?>
