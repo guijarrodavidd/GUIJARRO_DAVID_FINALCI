@@ -25,16 +25,26 @@
                     <div class="mb-5">
                         <h4 class="sidebar-title">Buscar</h4>
                         <div class="sidebar-search">
+                            
                             <div style="position: relative; width: 100%; max-width: 400px;">
+                                
                                 <form action="<?= base_url('mascotas') ?>" method="get" class="d-flex">
-                                    <input type="text" name="q" id="inputBuscador" placeholder="Ej: Bobby..." autocomplete="off" class="form-control me-2">
+                                    <input type="text" 
+                                           name="q" 
+                                           id="inputBuscador" 
+                                           class="form-control me-2" 
+                                           placeholder="Ej: Bobby..." 
+                                           autocomplete="off" 
+                                           value="<?= isset($_GET['q']) ? $_GET['q'] : '' ?>">
                                     <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
                                 </form>
 
-                                <div id="listaResultados" class="list-group position-absolute w-100 shadow" style="z-index: 1000; display: none; top: 100%; left: 0; background: white;">
+                                <div id="listaResultados" class="list-group position-absolute w-100 shadow" 
+                                     style="z-index: 1000; display: none; top: 100%; left: 0; background: white; max-height: 300px; overflow-y: auto;">
                                 </div>
+
                             </div>
-                        </div>
+                            </div>
                     </div>
 
                     <div class="mb-5 sidebar-categories">
@@ -47,7 +57,8 @@
                         </ul>
                     </div>
 
-                    <div class="text-center p-4 rounded text-white position-relative overflow-hidden" style="background: var(--primary-color);">
+                    <div class="text-center p-4 rounded text-white position-relative overflow-hidden" 
+                         style="background: var(--primary-color);">
                         <i class="bi bi-piggy-bank display-4 mb-3 d-block"></i>
                         <h5 class="fw-bold">¿Nos ayudas?</h5>
                         <p class="small mb-3">Tu donación compra comida y medicinas.</p>
@@ -128,61 +139,68 @@
 </section>
 
 <script>
-    // Inicializar Tooltips de Bootstrap
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+    // Esperamos a que todo el HTML cargue antes de ejecutar nada
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- 1. Tooltips ---
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
 
-    // Lógica del Buscador AJAX
-    const input = document.getElementById('inputBuscador');
-    const lista = document.getElementById('listaResultados');
+        // --- 2. Buscador AJAX ---
+        const input = document.getElementById('inputBuscador');
+        const lista = document.getElementById('listaResultados');
 
-    if(input) { // Verificamos que el input exista para evitar errores
-        input.addEventListener('keyup', function() {
-            let texto = this.value;
+        if (input && lista) {
+            // Evento 'keyup' detecta cuando escribes
+            input.addEventListener('keyup', function() {
+                let texto = this.value.trim();
 
-            if (texto.length < 2) {
-                lista.innerHTML = '';
-                lista.style.display = 'none';
-                return;
-            }
-
-            // Llamada AJAX
-            fetch('<?= base_url("mascotas/buscar-ajax") ?>?q=' + texto)
-                .then(response => response.json())
-                .then(data => {
+                // Si hay menos de 2 letras, ocultamos la lista y paramos
+                if (texto.length < 2) {
                     lista.innerHTML = '';
+                    lista.style.display = 'none';
+                    return;
+                }
 
-                    if (data.length > 0) {
-                        lista.style.display = 'block';
+                // Llamada AJAX al servidor
+                fetch('<?= base_url("mascotas/buscar-ajax") ?>?q=' + encodeURIComponent(texto))
+                    .then(response => response.json())
+                    .then(data => {
+                        lista.innerHTML = ''; // Limpiamos resultados previos
 
-                        data.forEach(animal => {
-                            let item = `
-                                <a href="<?= base_url('mascotas/') ?>/${animal.id}" class="list-group-item list-group-item-action d-flex align-items-center" style="cursor: pointer;">
-                                    <img src="<?= base_url('uploads/') ?>/${animal.imagen}" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
-                                    <div class="text-start">
-                                        <strong class="text-dark d-block" style="font-size: 0.9rem;">${animal.nombre}</strong>
-                                        <small class="text-muted" style="font-size: 0.75rem;">${animal.especie}</small>
-                                    </div>
-                                </a>
-                            `;
-                            lista.innerHTML += item;
-                        });
-                    } else {
-                        lista.style.display = 'none';
-                    }
-                })
-                .catch(err => console.error(err));
-        });
+                        if (data.length > 0) {
+                            lista.style.display = 'block'; // Mostramos la caja
 
-        // Cierra la lista si haces clic fuera
-        document.addEventListener('click', function(e) {
-            if (e.target !== input && e.target !== lista) {
-                lista.style.display = 'none';
-            }
-        });
-    }
+                            // Generamos el HTML de cada animal
+                            data.forEach(animal => {
+                                let item = `
+                                    <a href="<?= base_url('mascotas/') ?>/${animal.id}" class="list-group-item list-group-item-action d-flex align-items-center p-2" style="cursor: pointer; border-left: none; border-right: none;">
+                                        <img src="<?= base_url('uploads/') ?>/${animal.imagen}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 12px;">
+                                        <div class="text-start">
+                                            <strong class="text-dark d-block" style="font-size: 0.95rem;">${animal.nombre}</strong>
+                                            <small class="text-muted" style="font-size: 0.8rem;">${animal.especie}</small>
+                                        </div>
+                                    </a>
+                                `;
+                                lista.innerHTML += item;
+                            });
+                        } else {
+                            lista.style.display = 'none';
+                        }
+                    })
+                    .catch(err => console.error('Error:', err));
+            });
+
+            // Cerrar la lista si haces clic fuera
+            document.addEventListener('click', function(e) {
+                if (e.target !== input && e.target !== lista) {
+                    lista.style.display = 'none';
+                }
+            });
+        }
+    });
 </script>
 
 <?= $this->endSection() ?>

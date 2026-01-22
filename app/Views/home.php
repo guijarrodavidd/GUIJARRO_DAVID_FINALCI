@@ -11,7 +11,7 @@
     <div class="hero-overlay"></div>
 
     <div class="container hero-content text-center position-relative">
-        <h1 class="animate-up">Compañeros de vida,<br>no aaaa.</h1>
+        <h1 class="animate-up">Compañeros de vida,<br>no mascotas.</h1>
         <p class="animate-up delay-1 mt-4">
             Cientos de historias increíbles comienzan con una adopción. 
             <br>Descubre la lealtad en su forma más pura.
